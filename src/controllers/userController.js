@@ -25,7 +25,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     }
     const newUser = await User.create({
       email,
-      name,
+      name: name || email.split('@')[0],
       githubId: id,
       avataUrl,
     });
@@ -105,14 +105,14 @@ export const postEditPassword = async (req, res) => {
 
 export const getMe = async (req, res) => {
   await User.populate(req.user, 'videos');
-  res.render('userDetail', { pageTitle: 'UserDetail', user: req.user });
+  res.render('userDetail', { pageTitle: req.user.name, user: req.user });
 };
 
 export const userDetail = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id).populate('videos');
-    res.render('userDetail', { pageTitle: 'User Detail', user });
+    res.render('userDetail', { pageTitle: user.name, user });
   } catch (error) {
     res.redirect(routes.home);
   }
