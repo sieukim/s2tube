@@ -1,22 +1,25 @@
 header.header 
 	.header__wrapper
-		.header__column 
-			a(href=routes.home)
-				i.fab.fa-youtube 
-		.header__column 
-			form(action=routes.search, method="GET")
-				input(type="text", placeholder="Search by term...", name="term")
-		.header__column 
-			ul 
+		.header__column
+			a(href=routes.home) S2TUBE
+		.header__column
+			ul
+				li 
+					a(href=routes.home) HOME
+				li
+					a(href=routes.search) SEARCH
 				if !loggedUser
 					li 
-						a(href=routes.join) Join 
+						a(href=routes.join) JOIN
 					li 
-						a(href=routes.login) Log In
+						a(href=routes.login) LOGIN
 				else 
 					li
-						a(href=`${routes.videos}${routes.upload}`) Upload
+						a(href=`${routes.videos}${routes.upload}`) UPLOAD
 					li 
-						a(href=routes.me) Profile 
+						a(href=routes.me) PROFILE
 					li 
-						a(href=routes.logout) Log Out
+						a(href=routes.logout) LOGOUT
+				//- li
+				//- 	form(action=routes.search, method="GET")
+				//- 		input(type="text", placeholder="검색", name="term")

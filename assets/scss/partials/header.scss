@@ -1,49 +1,48 @@
 .header {
-  background-color: $red;
-  margin-bottom: 50px;
+  background-color: $header-color;
+  margin-bottom: 5vh;
+  height: 8vh;
+  text-transform: uppercase;
   .header__wrapper {
-    padding: 5px 0px;
+    padding: 2vh 3vh;
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     .header__column {
-      i {
-        color: white;
-        font-size: 30px;
-      }
-      &:nth-child(2) {
-        width: 100%;
-        justify-self: center;
+      &:nth-child(1) {
+        color: $white;
+        font-size: 4vh;
+        font-weight: 800;
       }
       &:last-child {
         justify-self: end;
       }
+      a:link {
+        color: $white;
+      }
+      a:visited {
+        color: $white;
+      }
+      a:hover {
+        color: $yellow;
+      }
       ul {
         display: flex;
-        color: white;
-        font-weight: 600;
-        text-transform: uppercase;
-        li:not(:last-child) {
-          margin-right: 15px;
+        color: $white;
+        padding: 1vh 0;
+        font-size: 2vh;
+        font-weight: 700;
+        a {
+          color: $white;
         }
-      }
-      form {
-        width: 100%;
-        input {
-          padding: 7px 10px;
-          width: 100%;
-          border-radius: 5px;
-          font-size: 14px;
-          color: $black;
-          font-weight: 600;
-          max-width: none;
-          &::placeholder {
-            font-weight: 300;
-            color: rgba(0, 0, 0, 0.7);
-          }
+        a:hover {
+          color: $yellow;
+        }
+        li:not(:last-child) {
+          margin-right: 2vw;
         }
       }
     }
