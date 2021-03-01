@@ -8,7 +8,7 @@ block content
         form(action=`${routes.videos}${routes.upload}`, method="POST", enctype="multipart/form-data")
             .fileUpload 
                 label(for="file") Video File
-                input#file(type="file", name="videoFile", required="true", accept="video/*")
+                input#file(type="file", name="videoFile", required="true", accept="video/mp4, video/webm")
             input(type="text", name="title", placeholder="Title", required="true")
             textarea(name="description", placeholder="Description", required="true")
             input(type="submit", value="Upload Video")
