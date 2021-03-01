@@ -1,10 +1,12 @@
 .record-container {
 	width: 100%;
-	max-width: 320px;
-	margin-bottom: 50px;
+	max-width: 30vw;
 	video {
 		background-color: $black;
 		width: 100%;
-		margin-bottom: 20px;
+	}
+	button {
+		margin: 1vw 0;
+		padding: 1vw 1vw;
 	}
 }

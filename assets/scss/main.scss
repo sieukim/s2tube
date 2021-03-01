@@ -25,11 +25,11 @@ textarea,
   width: 100%;
   border: none;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 2vh;
   color: $black;
-  font-weight: 600;
+  font-weight: 700;
   background-color: white;
-  max-width: width 320px;
+  max-width: 30vw;
   resize: none;
   &::placeholder {
     font-weight: 300;
@@ -39,12 +39,10 @@ textarea,
 
 button {
   border: none;
-  background-color: #3498db;
-  color: white;
-}
-
-button.delete {
-  background-color: $dark-red;
+  background-color: $header-color;
+  color: $white;
+  font-size: 2vh;
+  font-weight: 700;
 }
 
 button,

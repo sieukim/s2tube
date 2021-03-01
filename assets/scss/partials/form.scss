@@ -24,12 +24,13 @@
     input[type='file'] {
       margin-left: 1vw;
     }
+    textarea::placeholder,
     input::placeholder {
       font-weight: 700;
     }
   }
   a {
-    max-width: 320px;
+    max-width: 30vw;
     width: 100%;
   }
 }
