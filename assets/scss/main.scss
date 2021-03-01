@@ -19,7 +19,7 @@ main {
 
 button,
 input:not([type='file']),
-testarea,
+textarea,
 .fileUpload {
   padding: 7px 10px;
   width: 100%;
@@ -50,4 +50,8 @@ button.delete {
 button,
 input[type='submit'] {
   cursor: pointer;
+}
+
+label {
+  font-weight: 700;
 }

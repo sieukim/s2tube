@@ -7,7 +7,9 @@ export const getLogin = (req, res) => {
 };
 export const postLogin = passport.authenticate('local', {
   failureRedirect: routes.login,
+  failureFlash: 'Check email or password',
   successRedirect: routes.home,
+  successFlash: 'Welcome!',
 });
 
 export const githubLogin = passport.authenticate('github');
@@ -40,6 +42,7 @@ export const postGithubLogIn = (req, res) => {
 };
 
 export const logout = (req, res) => {
+  req.flash('info', 'See you later');
   req.logout();
   res.redirect(routes.home);
 };
@@ -47,9 +50,10 @@ export const logout = (req, res) => {
 export const getJoin = (req, res) => {
   res.render('join', { pageTitle: 'Join' });
 };
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
   const { name, email, password, password2 } = req.body;
   if (password !== password2) {
+    req.flash('error', 'Password does not match');
     res.status(400);
     res.render('join', { pageTitle: 'Join' });
   } else {
@@ -59,9 +63,10 @@ export const postJoin = async (req, res) => {
         email,
       });
       await User.register(user, password);
-      res.redirect(routes.home);
+      next();
     } catch (error) {
-      console.log(error);
+      req.flash('error', 'User Already Registered');
+      res.redirect(routes.home);
     }
   }
 };
@@ -105,14 +110,14 @@ export const postEditPassword = async (req, res) => {
 
 export const getMe = async (req, res) => {
   await User.populate(req.user, 'videos');
-  res.render('userDetail', { pageTitle: req.user.name, user: req.user });
+  res.render('userDetail', { pageTitle: 'Profile', user: req.user });
 };
 
 export const userDetail = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id).populate('videos');
-    res.render('userDetail', { pageTitle: user.name, user });
+    res.render('userDetail', { pageTitle: 'Profile', user });
   } catch (error) {
     res.redirect(routes.home);
   }

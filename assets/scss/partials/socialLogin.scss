@@ -5,24 +5,26 @@
   width: 100%;
   button {
     width: 100%;
-    max-width: 320px;
+    max-width: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
+    padding: 1vw 1vw;
+    margin-bottom: 2vw;
+    background-color: $header-color;
+    color: white;
     span {
       margin-right: 10px;
       font-size: 20px;
     }
-  }
-  .social-login--github {
-    background-color: $black;
-    color: white;
-  }
-  .social-login--facebook {
-    background-color: #3a5998;
-    color: white;
+    a:link {
+      color: $white;
+    }
+    a:visited {
+      color: $white;
+    }
+    a:hover {
+      color: $yellow;
+    }
   }
 }

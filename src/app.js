@@ -14,6 +14,7 @@ import videoRouter from './routers/videoRouter';
 import apiRouter from './routers/apiRouter';
 import routes from './routes';
 import { localsMiddleware } from './middlewares';
+import flash from 'express-flash';
 
 import './passport';
 
@@ -49,6 +50,7 @@ app.use(
     store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
+app.use(flash());
 app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());

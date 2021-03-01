@@ -25,9 +25,9 @@
     }
     .profile__username {
       font-size: 3vh;
-      font-weight: 900;
+      font-weight: 700;
       margin: 0.5vw;
-      color: $text-color;
+      color: $white;
       text-align: center;
     }
   }
@@ -40,9 +40,9 @@
       width: 10vw;
       height: 4vw;
       background-color: $header-color;
-      color: $text-color;
+      color: $white;
       font-size: 2vh;
-      font-weight: 800;
+      font-weight: 700;
     }
     a {
       &:nth-child(1) {
