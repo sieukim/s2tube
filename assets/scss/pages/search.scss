@@ -1,0 +1,32 @@
+.search__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.search__form {
+		display: flex;
+		flex-direction: column;
+		width: 40%;
+		margin-right: 1vw;
+		margin-bottom: 2vw;
+		background-color: $block-color;
+		padding: 1vw 1vw;
+		input[type="search"] {
+			width: 73%;
+			margin-right: 4%;
+		}
+		input[type="submit"] {
+			width: 23%;
+		}
+		.search__numbers {
+			background-color: $white;
+			margin-top: 1vw;
+			font-size: 2vh;
+			font-weight: 700;
+			border-radius: 5px;
+			padding: 7px 10px;
+		}
+	}
+	.search__videos {
+		align-items: center;
+	}
+}

@@ -4,7 +4,7 @@ import Comment from '../models/Comment';
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({}).sort({ _id: -1 }).populate("creator");
+    const videos = await Video.find({}).sort({ _id: -1 }).populate('creator');
     res.render('home', { pageTitle: 'Home', videos });
   } catch (error) {
     console.error(error);
@@ -14,10 +14,13 @@ export const home = async (req, res) => {
 export const search = async (req, res) => {
   const { term: searchingFor } = req.query;
   let videos = [];
+
   try {
-    videos = await Video.find({
-      title: { $regex: searchingFor, $options: 'i' },
-    });
+    if (searchingFor) {
+      videos = await Video.find({
+        title: { $regex: searchingFor, $options: 'i' },
+      });
+    }
   } catch (error) {
     console.log(error);
   }

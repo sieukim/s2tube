@@ -2,11 +2,18 @@ extends layouts/main
 include mixins/videoBlock
 
 block content 
-	.search__header 
-		h3 Searching for: #{searchingFor}
-	.search__videos 
-		if videos.length === 0
-			h5 No Videos Found 
-		else 
+	.search__container
+		.search__form
+			form(action=routes.search, method="GET")
+				input(type="search", placeholder="Search", name="term", value=searchingFor)
+				input#search-submit(type="submit", value="search")
+			.search__numbers
+				if videos.length === 0
+					h5 No Videos Found 
+				else if videos.length === 1
+					h5 1 video found 
+				else 
+					h5 #{videos.length} videos found
+		.search__videos 
 			each video in videos 
 				+videoBlock(video)
