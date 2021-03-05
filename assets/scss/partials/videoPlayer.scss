@@ -13,12 +13,13 @@
   .videoPlayer__controls {
     opacity: 0;
     transition: opacity 0.4s linear;
-    color: white;
+
+    color: $text-color;
     position: absolute;
     z-index: 9;
-    bottom: 0px;
+    bottom: 2px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $block-color;
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -29,6 +30,13 @@
       #jsVolumeBtn {
         margin-right: 10px;
       }
+      .videoPlayer__volume{
+        opacity: 0;
+      }
+      .videoPlayer__volumeBtn:hover + .videoPlayer__volume,.videoPlayer__volume:hover {
+        opacity: 1;
+      }
+      
     }
     .videoPlayer__volume {
       position: absolute;
@@ -39,16 +47,15 @@
       transform: rotate(-90deg);
       z-index: 10;
       width: 80px;
-
       input {
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: $text-color;
         &::-webkit-slider-runnable-track {
-          background-color: $grey;
+          background-color: transparent;
           height: 5px;
         }
         &::-webkit-slider-thumb {
           all: unset;
-          background-color: $red;
+          background-color: transparent;
           height: 15px;
           width: 15px;
           border-radius: 50%;

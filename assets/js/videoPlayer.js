@@ -116,8 +116,8 @@ function initVideoSize() {
 function init() {
   initVideoSize();
   videoPlayer.volume = 0.5;
-  playBtn.addEventListener('click', handlePlayClick);
   volumeBtn.addEventListener('click', handleVolumeClick);
+  playBtn.addEventListener('click', handlePlayClick);
   fullScreenBtn.addEventListener('click', fullScreen);
   videoPlayer.addEventListener('loadedmetadata', setTotalTime);
   if (videoPlayer.readyState >= 1) setTotalTime();
