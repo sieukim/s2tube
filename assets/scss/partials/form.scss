@@ -1,17 +1,20 @@
 .form-container {
   width: 100%;
+  max-width: 850px;
+  padding: 40px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $block-color;
   form {
     width: 100%;
-    max-width: 30vw;
     input:not([type='file']),
     .fileUpload {
       display: block;
       width: 100%;
       padding: 1vw 1vw;
-      margin-bottom: 2vw;
+      margin-bottom: 25px;
     }
     textarea {
       width: 100%;
@@ -30,7 +33,6 @@
     }
   }
   a {
-    max-width: 30vw;
     width: 100%;
     button {
       padding: 1vw 1vw;

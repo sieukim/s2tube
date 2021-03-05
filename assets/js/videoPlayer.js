@@ -1,13 +1,10 @@
 const videoContainer = document.getElementById('jsVideoPlayer');
 const videoPlayer = document.querySelector('#jsVideoPlayer video');
-
 const playBtn = document.getElementById('jsPlayBtn');
 const volumeBtn = document.getElementById('jsVolumeBtn');
 const fullScreenBtn = document.getElementById('jsFullScreenBtn');
-
 const currentTime = document.getElementById('jsCurrentTime');
 const totalTime = document.getElementById('jsTotalTime');
-
 const volumeRange = document.getElementById('jsVolumeRange');
 
 const registerView = () => {
@@ -94,14 +91,36 @@ function handleDrag(event) {
   else volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
 }
 
+function initVideoSize() {
+  const vh = (v) => {
+    const h = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+    return (v * h) / 100;
+  };
+  videoPlayer.addEventListener('loadedmetadata', () => {
+    const videoContainerStyle = window.getComputedStyle(videoContainer);
+    const videoHeight = +videoContainerStyle.height.replace('px', '');
+    const videoWidth = +videoContainerStyle.width.replace('px', '');
+    const ratio = videoWidth / videoHeight;
+    const vh80 = vh(80);
+
+    if (vh80 < videoHeight) {
+      videoContainer.style.height = `${vh80}px`;
+      videoContainer.style.width = `${vh80 * ratio}px`;
+    }
+  });
+}
+
 function init() {
+  initVideoSize();
   videoPlayer.volume = 0.5;
   playBtn.addEventListener('click', handlePlayClick);
   volumeBtn.addEventListener('click', handleVolumeClick);
   fullScreenBtn.addEventListener('click', fullScreen);
   videoPlayer.addEventListener('loadedmetadata', setTotalTime);
   if (videoPlayer.readyState >= 1) setTotalTime();
-  // videoPlayer.addEventListener('timeupdate',getCurrentTime);
   videoPlayer.addEventListener('ended', handleEnded);
   volumeRange.addEventListener('input', handleDrag);
 }
