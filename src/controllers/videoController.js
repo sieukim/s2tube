@@ -49,7 +49,10 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id)
       .populate('creator')
-      .populate('comments');
+      .populate({
+        path: 'comments',
+        populate: { path: 'creator', select: ['id', 'avatarUrl'] },
+      });
     res.render('videoDetail', { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
@@ -60,7 +63,7 @@ export const getEditVideo = async (req, res) => {
   const { id } = req.params;
   try {
     const video = await Video.findById(id);
-    if (video.creator != req.user.id) {
+    if (video.creator.toString() !== req.user.id) {
       throw Error();
     } else {
       res.render('editVideo', { pageTitle: `Edit ${video.title}`, video });
@@ -85,7 +88,7 @@ export const deleteVideo = async (req, res) => {
   const { id } = req.params;
   try {
     const video = await Video.findById(id);
-    if (video.creator != req.user.id) {
+    if (video.creator.toString() !== req.user.id) {
       throw Error();
     } else {
       await Video.findOneAndRemove({ _id: id });
@@ -112,7 +115,7 @@ export const postRegisterView = async (req, res) => {
 export const postAddComment = async (req, res) => {
   const { id } = req.params;
   const { comment } = req.body;
-  const user = req;
+  const { user } = req;
 
   try {
     const video = await Video.findById(id);
@@ -121,10 +124,40 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
     });
     video.comments.push(newComment.id);
-    video.save();
+    await video.save();
+    await Comment.populate(newComment,{path:"creator",select:["id","avatarUrl"]});
+    res.status(200);
+    res.json(newComment);
   } catch (error) {
+    console.log(error);
     res.status(400);
   } finally {
     res.end();
+  }
+};
+
+export const deleteComment = async (req, res) => {
+  const { id, commentId } = req.params;
+  const { user } = req;
+  console.log(`id  ${id}, commentId : ${commentId}`);
+  try {
+    const comment = await Comment.findById(commentId);
+
+    if (comment.creator.toString() !== user.id) {
+      return res.status(403).end();
+    }
+    const video = await Video.findById(id);
+    if (!video.comments.includes(comment.id)) {
+      return res.status(404).end();
+    }
+    // video에서 comment 삭제
+    video.comments.splice(video.comments.indexOf(comment.id), 1);
+    await video.save();
+    await comment.remove();
+
+    return res.status(200).end();
+  } catch (error) {
+    console.log(error);
+    return res.status(400).end();
   }
 };

@@ -2,4 +2,4 @@ import '../scss/styles.scss';
 import './videoPlayer';
 import './videoRecorder';
 import './videoBlock';
-import './addComment';
+import './comment';

@@ -12,6 +12,7 @@ const CommentShema = new Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
 });
 

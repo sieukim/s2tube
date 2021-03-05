@@ -2,33 +2,43 @@ extends layouts/main
 include mixins/videoPlayer
 
 block content 
-	.video-detail__container
+	.video__container 
 		+videoPlayer({ src: video.fileUrl })
-		.video__info 
-			if loggedUser && video.creator.id === loggedUser.id
+		.video__info__container 
+			.video__info
+				p.video__title=video.title
+				if video.views === 0
+					span.video__views 0 view
+				else if video.views === 1
+					span.video__views 1 view
+				else 
+					span.video__views #{video.views} views
+				a(href=routes.userDetail(video.creator.id))
+					img.u-avatar(src=video.creator.avatarUrl)
+			p.video__description=video.description
+			if loggedUser && loggedUser.id === video.creator.id
 				a(href=routes.editVideo(video.id)) 
 					button Edit video 
-			h5.video__title=video.title
-			p.video__description=video.description
-			if video.views === 1
-				span.video__views 1 view
-			else 
-				span.video__views #{video.views} views 
-			.video__author 
-				| Uploaded by 
-				a(href=routes.userDetail(video.creator.id)) #{video.creator.name}
-		.video__comments 
-			if video.comments.length === 1
-				span.video__comment-number 
-					span#jsCommentNumber 1 
-					|  comment 
-			else 
-				span.video__comment-number
-					span#jsCommentNumber=video.comments.length
-					|  comments
+		.video__comment
 			form.add__comment#jsAddComment
 				input(type="text", placeholder="Add a comment")
-			ul.video__comments-list#jsCommentList
+				input(type="submit", value="add")
+			.video__comment_title
+				if video.comments.length > 1
+					span.video__comment_number#jsCommentNumber #{video.comments.length} comments
+				else
+					span.video__comment_number#jsCommentNumber #{video.comments.length} comment
+			ul.video__comment_list#jsCommentList
 				each comment in video.comments.reverse()
-					li 
-						span=comment.text
+					form.video__comment-form(action=routes.deleteComment(video.id,comment.id),method="POST")
+						.video__comment_item
+							a(href=routes.userDetail(comment.creator.id))
+								img.u-avatar(src=comment.creator.avatarUrl)
+							if loggedUser && (loggedUser.id === comment.creator.id || loggedUser.id === video.creator.id)
+								.isAuthenticated
+									li
+										span=comment.text
+									input(type="submit", value="delete")
+							else 
+								li
+									span=comment.text

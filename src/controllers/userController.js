@@ -16,7 +16,7 @@ export const githubLogin = passport.authenticate('github');
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, avatar_url: avataUrl, name, email },
+    _json: { id, avatar_url: avatarUrl, name, email },
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -29,7 +29,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       email,
       name: name || email.split('@')[0],
       githubId: id,
-      avataUrl,
+      avatarUrl,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -81,7 +81,7 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avataUrl: file ? file.path : req.user.avataUrl,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
     });
     res.redirect(routes.me);
   } catch (error) {

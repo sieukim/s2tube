@@ -3,7 +3,7 @@ include mixins/videoBlock
 
 block content 
 	.user-profile  
-		img.u-avatar(src=user.avataUrl)
+		img.u-avatar(src=user.avatarUrl)
 		div
 			h4.profile__username=user.name
 		if loggedUser && user.id == loggedUser.id 
